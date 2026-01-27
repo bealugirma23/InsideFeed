@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String         @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  name          String
+  email         String
+  emailVerified Boolean        @default(false)
+  image         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  sessions      Session[]
+  accounts      Account[]
+  interests     UserInterest[]
+  bookmarks     Bookmark[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Category {
+  id        String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  news      News[]
+  interests UserInterest[]
+}
+
+model Source {
+  id        String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  name      String
+  baseUrl   String
+  createdAt DateTime @default(now())
+
+  news News[]
+}
+
+model News {
+  id          String    @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  title       String
+  content     String?
+  summary     String?
+  url         String    @unique
+  imageUrl    String?
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  categoryId String @db.Uuid
+  sourceId   String @db.Uuid
+
+  category Category @relation(fields: [categoryId], references: [id])
+  source   Source   @relation(fields: [sourceId], references: [id])
+
+  bookmarks Bookmark[]
+
+  @@index([categoryId])
+  @@index([publishedAt])
+}
+
+model UserInterest {
+  id         String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  userId     String   @db.Uuid
+  categoryId String   @db.Uuid
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, categoryId])
+}
+
+model Bookmark {
+  id        String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  userId    String   @db.Uuid
+  newsId    String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  news News @relation(fields: [newsId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, newsId])
+}
+
+model Session {
+  id        String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+
+  userId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  accountId             String
+  providerId            String
+  userId                String    @db.Uuid
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
