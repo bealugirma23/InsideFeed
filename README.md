@@ -24,11 +24,11 @@
     <a href="#getting-started"><strong>Get started »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/your_username/insidefeed">View Repo</a>
+    <a href="https://github.com/bealugirma23/insidefeed">View Repo</a>
     ·
-    <a href="https://github.com/your_username/insidefeed/issues">Report Bug</a>
+    <a href="https://github.com/bealugirma23/insidefeed/issues">Report Bug</a>
     ·
-    <a href="https://github.com/your_username/insidefeed/issues">Request Feature</a>
+    <a href="https://github.com/bealugirma23/insidefeed/issues">Request Feature</a>
   </p>
 </div>
 
@@ -103,7 +103,7 @@ Make sure you have the following installed:
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/your_username/insidefeed.git
+   git clone https://github.com/bealugirma23/insidefeed.git
    cd insidefeed
    ```
 
@@ -188,15 +188,15 @@ Maintained by **Bealu Girma**
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS -->
-[contributors-shield]: https://img.shields.io/github/contributors/your_username/insidefeed.svg?style=for-the-badge
-[contributors-url]: https://github.com/your_username/insidefeed/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/your_username/insidefeed.svg?style=for-the-badge
-[forks-url]: https://github.com/your_username/insidefeed/network/members
-[stars-shield]: https://img.shields.io/github/stars/your_username/insidefeed.svg?style=for-the-badge
-[stars-url]: https://github.com/your_username/insidefeed/stargazers
-[issues-shield]: https://img.shields.io/github/issues/your_username/insidefeed.svg?style=for-the-badge
-[issues-url]: https://github.com/your_username/insidefeed/issues
-[license-shield]: https://img.shields.io/github/license/your_username/insidefeed.svg?style=for-the-badge
-[license-url]: https://github.com/your_username/insidefeed/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/bealugirma23/insidefeed.svg?style=for-the-badge
+[contributors-url]: https://github.com/bealugirma23/insidefeed/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/bealugirma23/insidefeed.svg?style=for-the-badge
+[forks-url]: https://github.com/bealugirma23/insidefeed/network/members
+[stars-shield]: https://img.shields.io/github/stars/bealugirma23/insidefeed.svg?style=for-the-badge
+[stars-url]: https://github.com/bealugirma23/insidefeed/stargazers
+[issues-shield]: https://img.shields.io/github/issues/bealugirma23/insidefeed.svg?style=for-the-badge
+[issues-url]: https://github.com/bealugirma23/insidefeed/issues
+[license-shield]: https://img.shields.io/github/license/bealugirma23/insidefeed.svg?style=for-the-badge
+[license-url]: https://github.com/bealugirma23/insidefeed/blob/main/LICENSE
 
 
