@@ -12,6 +12,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum SourceType {
+  TELEGRAM
+  WEB
+}
+
 model User {
   id            String         @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
   name          String
@@ -44,6 +49,7 @@ model Source {
   id        String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
   name      String
   baseUrl   String
+  type      SourceType
   createdAt DateTime @default(now())
 
   news News[]
@@ -61,6 +67,9 @@ model News {
 
   categoryId String @db.Uuid
   sourceId   String @db.Uuid
+
+  popularityScore Float   @default(0)
+  isBreaking      Boolean @default(false)
 
   category Category @relation(fields: [categoryId], references: [id])
   source   Source   @relation(fields: [sourceId], references: [id])
