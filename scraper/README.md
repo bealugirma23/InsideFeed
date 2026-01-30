@@ -1,12 +1,47 @@
-# List
-## List of websites to be scraped
-  - Fana: https://www.fanabc.com/%E1%8B%9C%E1%8A%93/ 
-  - The Reporter Ethiopia:   https://www.thereporterethiopia.com/
-  - BBC Ethiopia: https://www.bbc.com/news/topics/cwlw3xz047jt
-  - EBC news: https://www.ebc.et/
-  - Addis fortune: https://addisfortune.news/
+# News Platform Scraper
 
+## Setup
 
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-## List of telegram channels to be scraped
-  - TIKVAH: @tikvahethiopia
+2. Set up your PostgreSQL database and configure environment variables:
+```bash
+export DB_HOST=localhost
+export DB_NAME=news_platform
+export DB_USER=postgres
+export DB_PASSWORD=your_password
+export DB_PORT=5432
+```
+
+## Seeding Data
+
+### Run all seeders:
+```bash
+python main.py
+```
+
+### Run individual seeders:
+```bash
+# Seed only categories
+python run_seeds.py categories
+
+# Seed only sources
+python run_seeds.py sources
+```
+
+## Database Models
+
+The application uses the following models:
+- Categories: Contains news categories (Politics, Business, Technology, etc.)
+- Sources: Contains news sources (websites and Telegram channels)
+
+## Environment Variables
+
+- `DB_HOST`: Database host (default: localhost)
+- `DB_NAME`: Database name (default: news_platform)
+- `DB_USER`: Database user (default: postgres)
+- `DB_PASSWORD`: Database password (default: password)
+- `DB_PORT`: Database port (default: 5432)

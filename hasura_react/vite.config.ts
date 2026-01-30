@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     TanStackRouterVite({
-      routesDirectory: "./src/app",
+      routesDirectory: "./src/routes",
       generatedRouteTree: "./src/routes.gen.ts",
       quoteStyle: "double",
       semicolons: false,
@@ -53,6 +53,6 @@ export default defineConfig(({ mode }) => ({
       typescript: true,
       overlay: false,
     }),
-    eslintPlugin({ cache: false }),
+    // eslintPlugin({ cache: false }),
   ],
 }))

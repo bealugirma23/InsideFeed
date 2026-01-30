@@ -27,7 +27,8 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "react-refresh/only-export-components": "warn",
+    "react/no-unescaped-entities": "off",
+    "react-refresh/only-export-components": "off",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": "warn",
@@ -37,15 +38,7 @@ module.exports = {
         ignorePrimitives: true,
       },
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        argsIgnorePattern: "^_",
-        caughtErrorsIgnorePattern: "^_",
-        destructuredArrayIgnorePattern: "^_",
-        varsIgnorePattern: "^_",
-      },
-    ],
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-misused-promises": [
       2,

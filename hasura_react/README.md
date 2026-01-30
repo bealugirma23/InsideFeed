@@ -1,16 +1,10 @@
-# vite-react-tanstack-tailwind-shadcn-starter
+# the page
+- auth login/signup/forgot-password/change-password
+- set interests after signup one time after registration
+- feed / home page
+- discover / search page
+- saved articles page
+- article detail page
+- profile management page
 
-React Starter Pack with:
 
-- Vite
-- TypeScript
-- Tailwind
-- TanStack Router
-- TanStack Query
-- Prettier + ESlint config
-- Total-Typescript ts reset
-- Extended Shadcn UI
-  - more colors
-  - more components variants
-  - ring offset color + tailwind utility `ring-offset-reset` (reset current ring offset color)
-- Geist + Geist Mono font family

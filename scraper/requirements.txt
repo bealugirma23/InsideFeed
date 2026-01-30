@@ -1,5 +1,5 @@
 
-beautifulsoup4==2.6.1
+beautifulsoup4==4.12.3
 # telegram scraping
 aiohappyeyeballs==2.6.1
 aiohttp==3.12.14
@@ -24,3 +24,5 @@ sqlalchemy-utils>=0.42.0
 # ai
 ollama
 
+asyncpg
+rich==14.3.1

@@ -53,12 +53,14 @@
     "react-day-picker": "8.10.1",
     "react-dom": "rc",
     "react-hook-form": "7.52.0",
+    "react-icons": "^5.5.0",
     "tailwind-merge": "2.3.0",
     "tailwindcss": "3.4.4",
     "tailwindcss-animate": "1.0.7",
     "tailwindcss-interaction-media": "0.1.0",
     "tailwindcss-safe-area": "0.5.1",
-    "zod": "3.23.8"
+    "zod": "3.23.8",
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.2.1",

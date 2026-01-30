@@ -1,37 +1,46 @@
-import psycopg2
+from sqlalchemy.orm import sessionmaker
+from .models import engine, Category, Source, Article
 
-conn = psycopg2.connect(
-    host=DB_HOST,
-    dbname=DB_NAME,
-    user=DB_USER,
-    password=DB_PASSWORD
-)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def insert_news(article):
-    with conn.cursor() as cur:
-        cur.execute("""
-            INSERT INTO news (
-                title, content, source, category, published_at, url
-            )
-            VALUES (%s, %s, %s, %s, %s, %s)
-            ON CONFLICT (url) DO NOTHING
-        """, (
-            article["title"],
-            article["content"],
-            article["source"],
-            article["category"],
-            article["published_at"],
-            article["url"],
-        ))
-    conn.commit()
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-def create_tables():
-    """Create all database tables based on models."""
-    # Enable pgvector extension if not already enabled
-    # Note: This requires superuser privileges or the extension must be pre-installed
-    with engine.begin() as conn:
-        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
-    
-    # Import models to ensure they're registered with Base
-    from models import TranscriptSegment  # noqa: F401
-    Base.metadata.create_all(bind=engine)
+def insert_category(db, name, slug):
+    category = Category(name=name, slug=slug)
+    db.add(category)
+    try:
+        db.commit()
+        return category
+    except Exception as e:
+        db.rollback()
+        # Handle duplicate key error if needed
+        existing_category = db.query(Category).filter(Category.slug == slug).first()
+        return existing_category
+
+def insert_source(db, name, base_url, source_type):
+    source = Source(name=name, base_url=base_url, type=source_type)
+    db.add(source)
+    try:
+        db.commit()
+        return source
+    except Exception as e:
+        db.rollback()
+        # Handle duplicate key error if needed
+        existing_source = db.query(Source).filter(Source.name == name).first()
+        return existing_source
+
+def insert_article(db, article: Article):
+    db.add(article)
+    try:
+        db.commit()
+        return article
+    except Exception as e:
+        db.rollback()
+        # Handle duplicate key error if needed
+        existing_article = db.query(Article).filter(Article.url == article.url).first()
+        return existing_article
