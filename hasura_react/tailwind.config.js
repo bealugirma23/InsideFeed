@@ -1,19 +1,13 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { fontFamily } from "tailwindcss/defaultTheme"
-// @ts-ignore
-import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette"
-import plugin from "tailwindcss/plugin"
-
-import type { Config } from "tailwindcss"
-
+/** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -27,7 +21,6 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        "current-background": "hsl(var(--current-background))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -37,14 +30,6 @@ export default {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
-        },
-        success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
-        },
-        warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -72,10 +57,6 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      fontFamily: {
-        sans: ["Geist", ...fontFamily.sans],
-        mono: ["Geist-Mono", ...fontFamily.mono],
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -92,25 +73,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/container-queries"),
-    require("@tailwindcss/typography"),
-    require("tailwindcss-animate"),
-    require("tailwindcss-interaction-media"),
-    require("tailwindcss-safe-area"),
-    plugin(({ matchUtilities, theme }) => {
-      matchUtilities(
-        {
-          "ring-offset-reset": (value) => ({
-            "--current-background": value.match(/^hsl\((.+)\)$/)?.[1] ?? value,
-          }),
-        },
-        {
-          type: "color",
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
-          values: flattenColorPalette(theme("colors")),
-        },
-      )
-    }),
-  ],
-} satisfies Config
+  plugins: [require("tailwindcss-animate")],
+}

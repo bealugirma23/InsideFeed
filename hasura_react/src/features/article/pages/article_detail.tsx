@@ -2,6 +2,7 @@ import { ArticleBody } from "../components/ArticleBody"
 import { ArticleHeader } from "../components/ArticleHeader"
 import { ArticleSidebar } from "../components/ArticleSidebar"
 import { RelatedSidebar } from "../components/RelatedSideBar"
+import { MOCK_ARTICLE, MOCK_RELATED } from "../constants"
 
 export const ArticleDetail = (props: {}) => {
   return (

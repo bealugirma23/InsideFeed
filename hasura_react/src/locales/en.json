@@ -1,0 +1,56 @@
+{
+  "translation": {
+    "nav": {
+      "tech": "Tech",
+      "finance": "Finance",
+      "health": "Health",
+      "politics": "Politics",
+      "science": "Science"
+    },
+    "search": {
+      "placeholder": "Search topics, sources..."
+    },
+    "user": {
+      "profile": "Profile",
+      "saved": "Saved Articles",
+      "logout": "Log out",
+      "account": "My Account"
+    },
+    "feed": {
+      "forYou": "For You",
+      "viewInterests": "View Interests",
+      "latestStories": "Latest Stories",
+      "expandHorizon": "Expand Your Horizon",
+      "discoverContent": "Discover hand-picked content tailored to your mood, mental energy, and schedule.",
+      "loading": "Curating more stories for you...",
+      "loadMore": "Load More Personalized Stories"
+    },
+    "article": {
+      "editorialPick": "Editorial Pick",
+      "sponsored": "Sponsored",
+      "getBy": "By",
+      "getGuide": "Get the Guide",
+      "readTime": "read",
+      "minutes": "min"
+    },
+    "sidebar": {
+      "trending": "Trending",
+      "trendingTopics": "Trending Topics",
+      "personalizedFeed": "Personalized Feed",
+      "newsletter": "Newsletter",
+      "subscribe": "Subscribe",
+      "emailPlaceholder": "Enter your email"
+    },
+    "auth": {
+      "login": "Login",
+      "signup": "Sign Up",
+      "forgotPassword": "Forgot Password?"
+    },
+    "footer": {
+      "about": "About Us",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  }
+}

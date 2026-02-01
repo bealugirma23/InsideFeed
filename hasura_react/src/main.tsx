@@ -2,7 +2,8 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createRouter, RouterProvider } from "@tanstack/react-router"
-
+import "./global.css"
+import "./i18n"
 import { routeTree } from "./routes.gen"
 
 // Set up a Router instance

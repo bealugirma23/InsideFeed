@@ -1,0 +1,56 @@
+{
+  "translation": {
+    "nav": {
+      "tech": "ቴክኖሎጂ",
+      "finance": "ፋይናንስ",
+      "health": "ጤና",
+      "politics": "ፖለቲካ",
+      "science": "ሳይንስ"
+    },
+    "search": {
+      "placeholder": "ርዕሶችን፣ ምንጮችን ይፈልጉ..."
+    },
+    "user": {
+      "profile": "መገለጫ",
+      "saved": "የተቀመጡ ጽሑፎች",
+      "logout": "ውጣ",
+      "account": "የኔ አካውንት"
+    },
+    "feed": {
+      "forYou": "ለእርስዎ",
+      "viewInterests": "ፍላጎቶችን ይመልከቱ",
+      "latestStories": "የቅርብ ጊዜ ወሬዎች",
+      "expandHorizon": "አድማስዎን ያስፉ",
+      "discoverContent": "ከእርስዎ ስሜት፣ የአዕምሮ ጉልበት እና የጊዜ ሰሌዳ ጋር የሚዛመዱ ተመራጭ ይዘቶችን ያግኙ።",
+      "loading": "ተጨማሪ ታሪኮችን በማዘጋጀት ላይ...",
+      "loadMore": "ተጨማሪ ታሪኮችን አሳይ"
+    },
+    "article": {
+      "editorialPick": "የአዘጋጁ ምርጫ",
+      "sponsored": "የተደገፈ",
+      "getBy": "በ",
+      "getGuide": "መመሪያውን ያግኙ",
+      "readTime": "ንባብ",
+      "minutes": "ደቂቃ"
+    },
+    "sidebar": {
+      "trending": "በአሁኑ ጊዜ በመነጋገር ላይ ያሉ",
+      "trendingTopics": "ተወዳጅ ርዕሶች",
+      "personalizedFeed": "ለእርስዎ የተበጀ መረጃ",
+      "newsletter": "ጋዜጣ",
+      "subscribe": "ሰብስክራይብ ያድርጉ",
+      "emailPlaceholder": "ኢሜይልዎን ያስገቡ"
+    },
+    "auth": {
+      "login": "ይግቡ",
+      "signup": "ይመዝገቡ",
+      "forgotPassword": "የይለፍ ቃል ረስተዋል?"
+    },
+    "footer": {
+      "about": "ስለ እኛ",
+      "contact": "ያግኙን",
+      "privacy": "የግላዊነት ፖሊሲ",
+      "terms": "የአጠቃቀም ደንቦች"
+    }
+  }
+}

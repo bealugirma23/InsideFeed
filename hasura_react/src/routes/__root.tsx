@@ -1,7 +1,7 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 
 import "unfonts.css"
-import "./globals.css"
+import "../global.css"
 
 export const Route = createRootRoute({
   component: RootLayout,

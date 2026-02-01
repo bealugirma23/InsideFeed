@@ -1,32 +1,59 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '../hooks/use-auth';
-import { useSignupMutation } from '../services/auth-api';
+import { useState } from "react"
+import { useNavigate } from "@tanstack/react-router"
+
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { authClient } from "@/lib/auth-client"
 
 interface SignupFormProps {
-  onSwitchToLogin: () => void;
+  onSwitchToLogin: () => void // Keeping prop for compatibility, though we might use Link
 }
 
 export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { signup } = useAuth();
-  const signupMutation = useSignupMutation();
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+
     try {
-      await signup(email, password, name);
-    } catch (error) {
-      console.error('Signup error:', error);
-      // Handle error routesropriately (show toast, etc.)
+      await authClient.signUp.email(
+        {
+          email,
+          password,
+          name,
+        },
+        {
+          onSuccess: () => {
+            navigate({ to: "/" })
+          },
+          onError: (ctx: any) => {
+            setError(ctx.error.message)
+          },
+        },
+      )
+    } catch (err: any) {
+      setError(err.message || "Something went wrong")
+    } finally {
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <Card className="w-full max-w-md">
@@ -68,21 +95,20 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
               required
             />
           </div>
+          {error && (
+            <div className="text-sm font-medium text-red-500">{error}</div>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
-          <Button 
-            type="submit" 
-            className="w-full" 
-            disabled={signupMutation.isPending}
-          >
-            {signupMutation.isPending ? 'Creating account...' : 'Create account'}
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Creating account..." : "Create account"}
           </Button>
-          <p className="text-sm text-center">
-            Already have an account?{' '}
+          <p className="text-center text-sm">
+            Already have an account?{" "}
             <button
               type="button"
               onClick={onSwitchToLogin}
-              className="text-blue-600 hover:underline font-medium"
+              className="font-medium text-blue-600 hover:underline"
             >
               Sign in
             </button>
@@ -90,5 +116,5 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
         </CardFooter>
       </form>
     </Card>
-  );
-};
+  )
+}

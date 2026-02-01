@@ -1,67 +1,93 @@
-import { LuCompass } from "react-icons/lu";
-import { HiOutlineHome } from "react-icons/hi2";
-import { FaRegBookmark } from "react-icons/fa6";
-import { FiSettings } from "react-icons/fi";
-import React from 'react';
-import { Link } from "@tanstack/react-router";
+import React from "react"
+import { FaRegBookmark } from "react-icons/fa6"
+import { FiSettings } from "react-icons/fi"
+import { HiOutlineHome } from "react-icons/hi2"
+import { LuCompass } from "react-icons/lu"
+import { Link, useLocation } from "@tanstack/react-router"
+import { IconBaseProps } from "react-icons"
+import { LucideTrendingUp } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 interface TrendingTopic {
-  tag: string;
-  count: string;
+  tag: string
+  count: string
 }
 
 interface SidebarProps {
-  topics: TrendingTopic[];
+  topics: TrendingTopic[]
+}
+
+
+interface sideBarLinksProps {
+  slug: string,
+  icon: IconBaseProps,
+  route: string,
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ topics }) => {
-  return (
-    <aside className="hidden xl:flex flex-col gap-8 w-64 shrink-0 sticky top-24 h-fit">
-      <section>
-        <h3 className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-4 px-3">Personalized Feed</h3>
-        <nav className="flex flex-col gap-1">
-          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-bold cursor-pointer">
-            <HiOutlineHome />
-            Home Feed
-          </Link>
-          <Link href="/discover" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-600 font-medium cursor-pointer">
-            <LuCompass />
-            Discover
-          </Link>
+  const location = useLocation();
 
-          <Link href="/saved" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-600 font-medium cursor-pointer">
-            <FaRegBookmark />
-            Saved Articles
-          </Link>
-          <Link href="/profile" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-600 font-medium cursor-pointer">
-            <FiSettings />
-            Profile
-          </Link>
+  const { t } = useTranslation();
+
+  const mainRoutes = [
+    { slug: t("sidebar.home", "Home"), icon: <HiOutlineHome />, route: "/" },
+    {
+      slug: t("sidebar.discover", "Discover"), icon: <LuCompass />
+      , route: "/discover"
+    },
+    {
+      slug: t("sidebar.saved", "Saved"), icon: <FaRegBookmark />
+      , route: "/saved"
+    },
+    {
+      slug: t("sidebar.profile", "Profile"), icon: <FiSettings />
+      , route: "/profile"
+    },
+  ]
+
+  return (
+    <aside className="sticky top-24 hidden h-fit w-64 shrink-0 flex-col gap-8 transition-all duration-300 xl:flex">
+      <section>
+        <h3 className="mb-4 px-3 text-[11px] font-bold uppercase tracking-widest text-gray-500">
+          {t("sidebar.personalizedFeed")}
+        </h3>
+        <nav className="flex flex-col gap-1">
+          {mainRoutes.map((item, index) => {
+            const selectedButton = location.pathname.startsWith(item.route);
+            return <Link
+              key={item.route}
+              to={item.route}
+              className={`${selectedButton  ? "bg-primary/80" : ""} flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-gray-600 transition-colors hover:bg-gray-100`}           >
+              {item.icon}
+              {item.slug}
+            </Link>
+          })}
         </nav>
       </section>
 
       <section>
-        <div className="flex items-center justify-between mb-4 px-3">
-          <h3 className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Trending Topics</h3>
-          <span className="material-symbols-outlined text-sm text-gray-400">trending_up</span>
+        <div className="mb-4 flex items-center justify-between px-3">
+          <h3 className="text-[11px] font-bold uppercase tracking-widest text-gray-500">
+            {t("sidebar.trendingTopics")}
+          </h3>
+          <LucideTrendingUp size={20} color="gray" />
         </div>
         <div className="flex flex-col gap-4 px-3">
-          {topics.map(topic => (
-            <div key={topic.tag} className="flex flex-col cursor-pointer group">
-              <span className="text-sm font-semibold group-hover:text-primary transition-colors">{topic.tag}</span>
+          {topics.map((topic) => (
+            <Link
+              key={topic.tag}
+              to="/search"
+              search={{ q: topic.tag }}
+              className="group flex cursor-pointer flex-col"
+            >
+              <span className="text-sm font-semibold transition-colors group-hover:text-primary">
+                {topic.tag}
+              </span>
               <span className="text-[11px] text-gray-500">{topic.count}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
-
-      <div className="bg-primary/5 rounded-xl p-5 border border-primary/10 mt-4">
-        <p className="text-[11px] font-bold text-primary uppercase mb-2">Upgrade to Pro</p>
-        <p className="text-sm text-gray-600 mb-4 leading-relaxed">Get ad-free reading and deep-dive analytics.</p>
-        <button className="w-full py-2 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-all shadow-sm">
-          Learn More
-        </button>
-      </div>
     </aside>
-  );
-};
+  )
+}

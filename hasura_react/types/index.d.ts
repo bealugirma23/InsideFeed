@@ -1,5 +1,28 @@
 
-export type Category = 'Technology' | 'Finance' | 'Health' | 'Sustainability' | 'Politics' | 'Science' | 'Editorial Pick' | 'Sponsored';
+
+
+
+
+export type Category = 
+  | 'Technology' 
+  | 'Finance' 
+  | 'Health' 
+  | 'Sustainability' 
+  | 'Politics' 
+  | 'Science' 
+  | 'Editorial Pick' 
+  | 'Sponsored'
+  | 'Tech News'
+  | 'Market Trends'
+  | 'Climate Change'
+  | 'Research'
+  | 'World News'
+  | 'Entertainment'
+  | 'Sports'
+  | 'Business'
+  | 'Gaming'
+  | 'Lifestyle'
+  | 'General';
 
 
 
@@ -89,4 +112,24 @@ export interface Story {
 export interface TrendingTopic {
   tag: string;
   count: string;
+}
+export interface Bookmark {
+  id: string;
+  title: string;
+  category: Category;
+  readTime: string;
+  source: string;
+  savedDate: string;
+  imageUrl: string;
+  isRead: boolean;
+  isArchived: boolean;
+  isFavorite: boolean;
+}
+
+export interface SidebarItem {
+  id: string;
+  label: string;
+  icon: string;
+  count?: number;
+  type: 'collection' | 'filter' | 'action';
 }

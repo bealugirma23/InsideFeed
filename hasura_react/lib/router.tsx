@@ -18,10 +18,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { useAuth } = require("../features/auth/hooks/use-auth");
   const { isAuthenticated, isOnboarded } = useAuth();
 
-  if (!isAuthenticated) {
-    // Redirect to login if not authenticated
-    return <Navigate to="/login" replace />;
-  }
+  // if (!isAuthenticated) {
+  //   // Redirect to login if not authenticated
+  //   return <Navigate to="/login" replace />;
+  // }
 
   if (!isOnboarded) {
     // Redirect to onboarding if not completed

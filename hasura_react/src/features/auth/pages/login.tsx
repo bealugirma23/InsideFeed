@@ -1,138 +1,244 @@
-import { useState } from 'react';
-import { LoginForm } from '../components/login-form';
-import { SignupForm } from '../components/signup-form';
+import { useState } from "react"
+import { Link, useNavigate } from "@tanstack/react-router"
+
+import { authClient } from "@/lib/auth-client"
+
+enum pageOption {
+  LOGIN,
+  SIGNUP,
+  FORGOTPASSWORD
+}
 
 export const LoginPage = () => {
-  const [mode, setMode] = useState<'Login' | 'Sign Up'>('Login');
+  const navigate = useNavigate()
+  const [option, setOption] = useState<pageOption>(pageOption.LOGIN)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [rememberMe, setRememberMe] = useState(false)
+
+
+
+
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+
+    try {
+      const { data, error } = await authClient.signIn.email(
+        {
+          email,
+          password,
+        },
+        {
+          onSuccess: () => {
+            navigate({ to: "/" })
+          },
+          onError: (ctx: any) => {
+            setError(ctx.error.message)
+          },
+        },
+      )
+    } catch (err: any) {
+      setError(err.message || "Something went wrong")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-     <div className="flex min-h-screen w-full flex-col lg:flex-row">
+    <div className="flex min-h-screen w-full flex-col lg:flex-row">
       {/* Left Side: Visual Anchor */}
-      <div className="relative hidden lg:flex lg:w-1/2 bg-primary overflow-hidden items-center justify-center">
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center opacity-80" 
-          style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBA0tlxFwJJpDNZPXemz1sUNyaNrsSWc5jZXzxu7hoCMnNm4ElVoEaMq07l_ARraYZNvpCnymeIMXcNby5qr3mWvIRzDVpLwew8UPgheRyEzvcgF-WjzPjGDjkfWNulsI2o9O5QHJ-KA5JeDv1OdSwZ-ut0X6jNpytUdow2VbpPatW_mwyBiAAJ1AKUw3T7OJdc6C-Xmu-hf7s2PE9k7jREcY_1nZAtB_VmTTJQTv0sdbiSEbaLLo9eJp-EHnsFraMmij2iYyqHvoRR')" }}
+      <div className="relative hidden items-center justify-center overflow-hidden bg-primary lg:flex lg:w-1/2">
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center opacity-80 bg-orange-600"
         />
         <div className="absolute inset-0 z-10 bg-gradient-to-tr from-primary/90 to-primary/40"></div>
         <div className="relative z-20 px-12 text-white">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="size-10 bg-white rounded-lg flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined text-3xl font-bold">hub</span>
+          <div className="mb-8 flex items-center gap-3">
+            <div className="flex size-10 items-center justify-center rounded-lg bg-white text-primary">
+              <img src="/logo-hori.png" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">NewsPulse</h1>
+            <h1 className="text-3xl font-bold tracking-tight">InsideFeed</h1>
           </div>
-          <h2 className="text-5xl font-black leading-tight mb-6">Your world,<br />personalized.</h2>
-          <p className="text-xl text-white/80 max-w-md leading-relaxed font-medium">
-            Join over 2 million readers discovering stories that matter. Real-time insights from across the globe, tailored to your interests.
+          <h2 className="mb-6 text-5xl font-black leading-tight">
+            Your world,
+            <br />
+            personalized.
+          </h2>
+          <p className="max-w-md text-xl font-medium leading-relaxed text-white/80">
+            Join us as you discover stories that matter.
+            Real-time insights from across the globe, tailored to your
+            interests.
           </p>
           <div className="mt-12 flex gap-12">
             <div className="flex flex-col">
-              <span className="text-3xl font-black">500+</span>
-              <span className="text-sm text-white/60 font-medium">Trusted Sources</span>
+              <span className="text-3xl font-black">20+</span>
+              <span className="text-sm font-medium text-white/60">
+                Trusted Sources
+              </span>
             </div>
             <div className="flex flex-col">
               <span className="text-3xl font-black">24/7</span>
-              <span className="text-sm text-white/60 font-medium">Live Updates</span>
+              <span className="text-sm font-medium text-white/60">
+                Live Updates
+              </span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Right Side: Auth Form */}
-      <div className="flex w-full flex-col lg:w-1/2 bg-white items-center justify-center p-8 lg:p-20">
-        <div className="w-full max-w-[440px] flex flex-col">
+      <div className="flex w-full flex-col items-center justify-center bg-white p-8 lg:w-1/2 lg:p-20">
+        <div className="flex w-full max-w-[440px] flex-col">
           {/* Mobile Logo */}
-          <div className="flex lg:hidden items-center gap-2 mb-10 text-primary">
-            <span className="material-symbols-outlined text-3xl font-bold">hub</span>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">NewsPulse</h1>
+          <div className="mb-10 flex items-center gap-2 text-primary lg:hidden">
+            <span className="material-symbols-outlined text-3xl font-bold">
+              hub
+            </span>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              NewsPulse
+            </h1>
           </div>
 
           <div className="mb-8">
-            <h2 className="text-slate-950 text-3xl font-black tracking-tight leading-tight">Welcome back</h2>
-            <p className="text-slate-500 text-base mt-2 font-medium">Access your tailored news feed and join the conversation.</p>
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-slate-950">
+
+              {option == pageOption.LOGIN ? "Welcome back" : "Singup"}
+            </h2>
+            <p className="mt-2 text-base font-medium text-slate-500">
+              Access your tailored news feed and join the conversation.
+            </p>
           </div>
 
           {/* Toggle */}
-          <div className="flex bg-slate-100 p-1 rounded-xl mb-6">
-            <button 
-              onClick={() => setMode('Login')}
-              className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${mode === 'Login' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}
+          <div className="mb-6 flex rounded-xl bg-slate-100 p-1">
+            <button
+              onClick={() => setOption(pageOption.LOGIN)}
+
+              className={`flex-1 rounded-lg py-2 text-sm font-bold text-slate-900 shadow-sm transition-all`}
             >
               Login
             </button>
-            <button 
-              onClick={() => setMode('Sign Up')}
-              className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${mode === 'Sign Up' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}
+            <button
+              onClick={() => setOption(pageOption.SIGNUP)}
+              className={`flex flex-1 items-center justify-center rounded-lg py-2 text-sm font-bold text-slate-500 transition-all hover:text-slate-700`}
             >
               Sign Up
             </button>
           </div>
 
           {/* Social Logins */}
-          <div className="flex flex-col gap-3 mb-8">
-            <button className="flex w-full items-center justify-center gap-3 h-12 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors">
-              <img alt="Google" className="size-5" src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" />
-              <span className="text-slate-700 font-bold text-sm">Continue with Google</span>
-            </button>
-            <button className="flex w-full items-center justify-center gap-3 h-12 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors">
-              <span className="material-symbols-outlined text-slate-900">routesle</span>
-              <span className="text-slate-700 font-bold text-sm">Continue with Apple</span>
+          <div className="mb-8 flex flex-col gap-3">
+            <button className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 transition-colors hover:bg-slate-50">
+              <img
+                alt="Google"
+                className="size-5"
+                src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+              />
+              <span className="text-sm font-bold text-slate-700">
+                Continue with Google
+              </span>
             </button>
           </div>
 
           {/* Divider */}
-          <div className="relative flex items-center mb-8">
+          <div className="relative mb-8 flex items-center">
             <div className="flex-grow border-t border-slate-100"></div>
-            <span className="flex-shrink mx-4 text-slate-400 text-[10px] font-bold uppercase tracking-widest">Or with email</span>
+            <span className="mx-4 flex-shrink text-[10px] font-bold uppercase tracking-widest text-slate-400">
+              Or with email
+            </span>
             <div className="flex-grow border-t border-slate-100"></div>
           </div>
 
+
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-bold text-slate-700 ml-1">Email address</label>
-              <input 
+              <label className="ml-1 text-sm font-bold text-slate-700">
+                Email address
+              </label>
+              <input
                 required
-                className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" 
-                placeholder="name@example.com" 
-                type="email" 
+                className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary"
+                placeholder="name@example.com"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center ml-1">
-                <label className="text-sm font-bold text-slate-700">Password</label>
-                <a className="text-xs font-bold text-primary hover:underline" href="#">Forgot password?</a>
+              <div className="ml-1 flex items-center justify-between">
+                <label className="text-sm font-bold text-slate-700">
+                  Password
+                </label>
+                <button
+                  className="text-xs font-bold text-primary hover:underline"
+                >
+                  Forgot password?
+                </button>
               </div>
-              <input 
+              <input
                 required
-                className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" 
-                placeholder="••••••••" 
-                type="password" 
+                className="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary"
+                placeholder="••••••••"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="flex items-center gap-2 px-1 mt-1">
-              <input className="size-4 rounded border-slate-300 text-primary focus:ring-primary" id="remember" type="checkbox" />
-              <label className="text-sm text-slate-500 font-medium" htmlFor="remember">Remember me for 30 days</label>
+            <div className="mt-1 flex items-center gap-2 px-1">
+              <input
+                className="size-4 rounded border-slate-300 text-primary focus:ring-primary"
+                id="remember"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <label
+                className="text-sm font-medium text-slate-500"
+                htmlFor="remember"
+              >
+                Remember me for 30 days
+              </label>
             </div>
-            <button 
-              className="mt-4 flex h-14 w-full items-center justify-center rounded-xl bg-primary text-white font-black tracking-wide hover:bg-primary/90 transition-all shadow-xl shadow-primary/20 active:scale-[0.98]" 
+            {error && (
+              <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm font-medium text-red-600">
+                {error}
+              </div>
+            )}
+            <button
+              className="mt-4 flex h-14 w-full items-center justify-center rounded-xl bg-primary font-black tracking-wide text-white shadow-xl shadow-primary/20 transition-all hover:bg-primary/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
               type="submit"
+              disabled={loading}
             >
-              Continue
+              {loading ? "Signing in..." : "Continue"}
             </button>
           </form>
 
-          <p className="mt-10 text-center text-[13px] text-slate-500 leading-relaxed font-medium">
-            By continuing, you agree to NewsPulse's 
-            <a className="text-slate-900 font-bold hover:underline mx-1" href="#">Terms of Service</a> and 
-            <a className="text-slate-900 font-bold hover:underline" href="#">Privacy Policy</a>.
+          <p className="mt-10 text-center text-[13px] font-medium leading-relaxed text-slate-500">
+            By continuing, you agree to InsideFeed's
+            <a
+              className="mx-1 font-bold text-slate-900 hover:underline"
+              href="#"
+            >
+              Terms of Service
+            </a>{" "}
+            and
+            <a className="font-bold text-slate-900 hover:underline" href="#">
+              Privacy Policy
+            </a>
+            .
           </p>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

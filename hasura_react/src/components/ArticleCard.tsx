@@ -1,24 +1,10 @@
 
 
 import React from 'react';
+import { Article } from '../../types';
+import { LuBookmark, LuHeart, LuSaveOff, LuShare, LuShare2 } from 'react-icons/lu';
+import { Link } from '@tanstack/react-router';
 
-export type Category = 'Technology' | 'Finance' | 'Health' | 'Sustainability' | 'Politics' | 'Science' | 'Editorial Pick' | 'Sponsored';
-
-export interface Article {
-  id: string;
-  category: Category;
-  title: string;
-  excerpt: string;
-  source: string;
-  timeAgo: string;
-  readTime?: string;
-  image?: string;
-  author?: string;
-  likes?: string;
-  shares?: string;
-  isOpinion?: boolean;
-  isSponsored?: boolean;
-}
 interface ArticleCardProps {
   article: Article;
 }
@@ -32,8 +18,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
           {article.title}
         </h4>
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 rounded-full bg-gray-200 border border-gray-300"></div>
-          <span className="text-xs text-gray-500 font-medium">By {article.author} • {article.source}</span>
+          <div className="w-6 h-6 rounded-full bg-gray-200 border border-gray-300">
+            {article.author?.avatar && <img src={article.author.avatar} alt={article.author.name} className="w-full h-full rounded-full object-cover" />}
+          </div>
+          <span className="text-xs text-gray-500 font-medium">By {article.author?.name} • {article.source}</span>
         </div>
       </article>
     );
@@ -61,7 +49,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   }
 
   return (
-    <article className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col">
+    <Link to={"/article/$articleId"} params={{ articleId: article.id }}>
+    <article className="bg-white  border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col">
       {article.image && (
         <div className="relative h-48 overflow-hidden">
           <img
@@ -102,19 +91,20 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
           <div className="flex items-center gap-4 text-gray-400">
             <button className="flex items-center gap-1 hover:text-red-500 transition-colors">
-              <span className="material-symbols-outlined text-[18px]">favorite</span>
+              <LuHeart />
               <span className="text-xs font-medium">{article.likes || '0'}</span>
             </button>
             <button className="flex items-center gap-1 hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-[18px]">share</span>
+              <LuShare2 />
               <span className="text-xs font-medium">{article.shares || ''}</span>
             </button>
           </div>
           <button className="p-1 hover:bg-gray-100 rounded-lg text-gray-400 transition-colors">
-            <span className="material-symbols-outlined text-[18px]">bookmark</span>
+            <LuBookmark />
           </button>
         </div>
       </div>
     </article>
-  );
+    </Link>
+  )
 };
