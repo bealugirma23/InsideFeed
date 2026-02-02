@@ -18,18 +18,18 @@ enum SourceType {
 }
 
 model User {
-  id            String         @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  id            String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
   name          String
   email         String
-  emailVerified Boolean        @default(false)
+  emailVerified Boolean  @default(false)
   image         String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  sessions      Session[]
-  accounts      Account[]
-  interests     UserInterest[]
-  bookmarks     Bookmark[]
+  sessions  Session[]
+  accounts  Account[]
+  interests UserInterest[]
+  bookmarks Bookmark[]
 
   @@unique([email])
   @@map("user")
@@ -41,21 +41,25 @@ model Category {
   slug      String   @unique
   createdAt DateTime @default(now())
 
-  news      News[]
+  news      Articles[]
   interests UserInterest[]
+
+  @@map("categories")
 }
 
 model Source {
-  id        String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  id        String     @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
   name      String
   baseUrl   String
   type      SourceType
-  createdAt DateTime @default(now())
+  createdAt DateTime   @default(now())
 
-  news News[]
+  news Articles[]
+  @@map("source")
 }
 
-model News {
+
+model Articles {
   id          String    @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
   title       String
   content     String?
@@ -64,7 +68,8 @@ model News {
   imageUrl    String?
   publishedAt DateTime?
   createdAt   DateTime  @default(now())
-
+  view        String?
+  
   categoryId String @db.Uuid
   sourceId   String @db.Uuid
 
@@ -78,6 +83,7 @@ model News {
 
   @@index([categoryId])
   @@index([publishedAt])
+  @@map("articles")
 }
 
 model UserInterest {
@@ -90,6 +96,7 @@ model UserInterest {
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([userId, categoryId])
+  @@map("user_interests")
 }
 
 model Bookmark {
@@ -99,9 +106,10 @@ model Bookmark {
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  news News @relation(fields: [newsId], references: [id], onDelete: Cascade)
+  news Articles @relation(fields: [newsId], references: [id], onDelete: Cascade)
 
   @@unique([userId, newsId])
+  @@map("bookmark")
 }
 
 model Session {
@@ -153,4 +161,3 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
-
