@@ -1,0 +1,40 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "globalDependencies": ["**/.env"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "build/**"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "docker:up": {
+      "dependsOn": ["build"],
+      "persistent": true,
+      "cache": false
+    },
+    "docker:down": {
+      "dependsOn": [],
+      "persistent": true,
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "dev": {
+      "dependsOn": [],
+      "persistent": true,
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "format": {
+      "dependsOn": [],
+      "outputs": []
+    }
+  }
+}

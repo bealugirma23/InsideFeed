@@ -21,8 +21,13 @@ def categorize_articles(batch_size: int = 10):
     category_map = get_category_map()
     valid_categories = [c["name"] for c in CATEGORIES]
     
-    # Fetch articles where category_id is NULL
-    articles = db.query(Article).filter(Article.category_id == None).limit(batch_size).all()
+    # Fetch articles where categoryId is the default "Uncategorized" category
+    uncategorized_category = db.query(Category).filter(Category.slug == "uncategorized").first()
+    if not uncategorized_category:
+        logger.error("Uncategorized category not found")
+        return
+        
+    articles = db.query(Article).filter(Article.categoryId == uncategorized_category.id).limit(batch_size).all()
     
     if not articles:
         logger.info("No uncategorized articles found.")
@@ -62,7 +67,7 @@ def categorize_articles(batch_size: int = 10):
                     break
             
             if matched_id:
-                article.category_id = matched_id
+                article.categoryId = matched_id
                 db.commit()
                 logger.info(f"Categorized: '[italic]{article.title[:50]}[/italic]...' -> [bold green]{predicted_category}[/bold green]")
             else:

@@ -8,7 +8,7 @@ import os
 from rich.panel import Panel
 from rich.text import Text
 from utils.logger import logger, log_success, console
-
+from scraper import scrape_all
 # Add the project root to the Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,7 +28,6 @@ def main():
     
     # Web Scraping
     logger.info("[bold blue]Step 1: Web Scraping[/bold blue]")
-    from scraper import scrape_all
     try:
         scrape_all()
         log_success("Web scraping phase completed!")

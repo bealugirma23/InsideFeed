@@ -1,5 +1,6 @@
 # Defined categories
 CATEGORIES = [
+    {"name": "Uncategorized", "slug": "uncategorized"},
     {"name": "Politics", "slug": "politics"},
     {"name": "Business", "slug": "business"},
     {"name": "Technology", "slug": "technology"},
@@ -52,32 +53,7 @@ SOURCES = [
     {"name": "EBC news", "base_url": "https://www.ebc.et/", "type": "WEB"},
     {"name": "Addis fortune", "base_url": "https://addisfortune.news/", "type": "WEB"},
     # TELEGRAM Channels
-    {
-        "name": "TechTelegramChannel",
-        "base_url": "https://t.me/technews",
-        "type": "TELEGRAM",
-    },
-    {"name": "WorldNewsTG", "base_url": "https://t.me/worldnews", "type": "TELEGRAM"},
-    {
-        "name": "PoliticsTG",
-        "base_url": "https://t.me/politicalupdates",
-        "type": "TELEGRAM",
-    },
-    {
-        "name": "EthiopiaNewsTG",
-        "base_url": "https://t.me/ethiopianews",
-        "type": "TELEGRAM",
-    },
-    {
-        "name": "CryptoAlertsTG",
-        "base_url": "https://t.me/cryptoalerts",
-        "type": "TELEGRAM",
-    },
-    {
-        "name": "SportsUpdatesTG",
-        "base_url": "https://t.me/sportsupdates",
-        "type": "TELEGRAM",
-    },
+    
     {
         "name": "TIKVAH-ETHIOPIA",
         "base_url": "https://t.me/tikvahethiopia",
@@ -101,6 +77,17 @@ SOURCES = [
     {
         "name": "Ethiopian Business Daily",
         "base_url": "https://t.me/Ethiopianbusinessdaily",
+        "type": "TELEGRAM",
+    },
+    {"name": "WorldNews", "base_url": "https://t.me/worldnews", "type": "TELEGRAM"},
+    {
+        "name": "CryptoAlertsTG",
+        "base_url": "https://t.me/cryptoalerts",
+        "type": "TELEGRAM",
+    },
+    {
+        "name": "SportsUpdatesTG",
+        "base_url": "https://t.me/sportsupdates",
         "type": "TELEGRAM",
     },
 ]
