@@ -1,0 +1,38 @@
+
+
+> @inside_feed/client@2.0.0 build /Users/mac/Desktop/news-platform/app/client
+> tsc && vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+[33m[1m(!) %VITE_GOOGLE_SITE_VERIFICATION% is not defined in env variables found in /index.html. Is the variable mistyped?[22m[39m
+[2K[1Gtransforming (1) [2msrc/main.tsx[22m[2K[1Gtransforming (23) [2mnode_modules/@tanstack/react-query/build/modern/mutationOptions.js[22m[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1Gtransforming (144) [2mnode_modules/react-i18next/dist/es/Trans.js[22m[2K[1G[2K[1Gtransforming (210) [2mnode_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js[22m[2K[1Gtransforming (229) [2mnode_modules/react-icons/fa6/index.mjs[22m[2K[1Gtransforming (527) [2mnode_modules/lucide-react/dist/esm/icons/align-end-vertical.js[22m[2K[1Gtransforming (1228) [2mnode_modules/lucide-react/dist/esm/icons/indian-rupee.js[22m[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1Gtransforming (2232) [2mnode_modules/graphql/validation/rules/UniqueArgumentDefinitionNamesRule.mjs[22m[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1Gtransforming (2736) [2mnode_modules/framer-motion/dist/es/render/components/create-proxy.mjs[22m[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 3036 modules transformed.
+[2K[1G[33m[plugin vite:reporter] 
+(!) /Users/mac/Desktop/news-platform/app/client/src/graphql/userInterests.ts is dynamically imported by /Users/mac/Desktop/news-platform/app/client/src/routes/_base.tsx but also statically imported by /Users/mac/Desktop/news-platform/app/client/src/features/feed/pages/FeedPage.tsx, /Users/mac/Desktop/news-platform/app/client/src/features/onboarding/pages/interestsPage.tsx, /Users/mac/Desktop/news-platform/app/client/src/features/profile/components/PreferencesSettings.tsx, dynamic import will not move module into another chunk.
+[39m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1Gcomputing gzip size (3)...[2K[1G[2mdist/[22m[32mindex.html                                  [39m[1m[2m  2.78 kB[22m[1m[22m[2m │ gzip:   0.64 kB[22m
+[2mdist/[22m[2massets/[22m[32mGeist-Thin-DZyDFsSO.woff2            [39m[1m[2m 30.91 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-Thin-BCHl0o6A.woff2        [39m[1m[2m 31.50 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-UltraLight-DeBk3wlk.woff2      [39m[1m[2m 32.34 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-Regular-FjSlt_5Y.woff2         [39m[1m[2m 32.54 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-Light-Bu7ofmug.woff2           [39m[1m[2m 32.86 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-UltraLight-UT3sOLuz.woff2  [39m[1m[2m 33.14 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-Medium-D9Eh8Qwe.woff2          [39m[1m[2m 33.16 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-Regular-CKQkSUaL.woff2     [39m[1m[2m 33.29 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-Light-Dwm25bWI.woff2       [39m[1m[2m 33.52 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-SemiBold-DhLzwtWg.woff2        [39m[1m[2m 33.57 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-Medium-B5HbQ-sv.woff2      [39m[1m[2m 33.78 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-SemiBold-Dxqj49No.woff2    [39m[1m[2m 33.78 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-Bold-DGM5QxEz.woff2        [39m[1m[2m 33.82 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-Bold-CPQnOwYu.woff2            [39m[1m[2m 33.91 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-Black-BovN0AmN.woff2       [39m[1m[2m 34.16 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-Black-CymTTZTN.woff2           [39m[1m[2m 34.40 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeistMono-UltraBlack-BDhAyJ6r.woff2  [39m[1m[2m 34.41 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mGeist-UltraBlack-zuXfWrZ8.woff2      [39m[1m[2m 34.65 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-oZiDKZbD.css                   [39m[1m[2m 67.91 kB[22m[1m[22m[2m │ gzip:  11.85 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-CBjU2_eK.js                    [39m[1m[33m769.55 kB[39m[22m[2m │ gzip: 239.63 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 2.68s[39m

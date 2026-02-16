@@ -28,6 +28,9 @@ class FanaScraper(BaseScraper):
         headlines = soup.find_all("h2", class_="title")
 
         for headline in headlines:
+            if not self.should_continue_scraping():
+                break
+                
             anchor_tag = headline.find("a")
             if not anchor_tag:
                 continue

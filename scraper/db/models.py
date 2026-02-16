@@ -1,7 +1,11 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Text, ForeignKey
+import enum
+from sqlalchemy.dialects.postgresql import ENUM
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Text, ForeignKey, Boolean, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
+import uuid
 try:
     from config.settings import DATABASE_URL
 except ImportError:
@@ -14,56 +18,59 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+class SourceType(enum.Enum):
+    TELEGRAM = "TELEGRAM"
+    WEB = "WEB"
+
+
+
 class Category(Base):
     __tablename__ = "categories"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     name = Column(String, unique=True, index=True, nullable=False)
     slug = Column(String, unique=True, index=True, nullable=False)
+    createdAt = Column(DateTime, default=datetime.utcnow)
     
     articles = relationship("Article", back_populates="category")
 
 class Source(Base):
-    __tablename__ = "sources"
+    __tablename__ = "source"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, index=True, nullable=False)
-    base_url = Column(String, nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    name = Column(String, nullable=False)
+    baseUrl = Column(String, nullable=False)
     type = Column(String, nullable=False)  # WEB or TELEGRAM
+    createdAt = Column(DateTime, default=datetime.utcnow)
 
     articles = relationship("Article", back_populates="source")
-    telegram_messages = relationship("TelegramMessage", back_populates="source")
 
 class Article(Base):
     __tablename__ = "articles"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     title = Column(String, index=True, nullable=False)
     content = Column(Text, nullable=True)
-    url = Column(String, unique=True, index=True, nullable=False)
-    published_at = Column(DateTime, default=datetime.utcnow)
-    scraped_at = Column(DateTime, default=datetime.utcnow)
+    summary = Column(String, nullable=True)
     
-    source_id = Column(Integer, ForeignKey("sources.id"))
-    category_id = Column(Integer, ForeignKey("categories.id"), nullable=True)
+    # Canonical identity (Telegram → t.me link)
+    url = Column(String, unique=True, index=True, nullable=False)
+    
+    # Media is OPTIONAL and NOT unique
+    imageUrl = Column(String, nullable=True, index=True)
+    
+    publishedAt = Column(DateTime, nullable=True, index=True)
+    createdAt = Column(DateTime, default=datetime.utcnow)
+    
+    view = Column(String, nullable=True)
+    popularityScore = Column(Float, default=0.0)
+    isBreaking = Column(Boolean, default=False)
+
+    sourceId = Column(UUID(as_uuid=True), ForeignKey("source.id"), nullable=False)
+    categoryId = Column(UUID(as_uuid=True), ForeignKey("categories.id"), nullable=False, index=True)
 
     source = relationship("Source", back_populates="articles")
     category = relationship("Category", back_populates="articles")
-
-class TelegramMessage(Base):
-    __tablename__ = "telegram_messages"
-
-    id = Column(Integer, primary_key=True, index=True)
-    message_id = Column(Integer, index=True)
-    content = Column(Text, nullable=True)
-    date = Column(DateTime, index=True)
-    media_path = Column(String, nullable=True)
-    views = Column(Integer, nullable=True)
-    forwards = Column(Integer, nullable=True)
-    reactions = Column(String, nullable=True)
-    
-    source_id = Column(Integer, ForeignKey("sources.id"))
-    source = relationship("Source", back_populates="telegram_messages")
 
 def get_db():
     db = SessionLocal()
